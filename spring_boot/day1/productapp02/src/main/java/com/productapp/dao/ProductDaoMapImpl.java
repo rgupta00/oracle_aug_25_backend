@@ -9,7 +9,9 @@ import java.util.Map;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
-
+@Repository(value = "mapDao")
+@Primary
+//@Profile("dev")
 public class ProductDaoMapImpl implements ProductDao{
 
 	private static Map<Integer, Product> map=new HashMap<>();
@@ -23,5 +25,41 @@ public class ProductDaoMapImpl implements ProductDao{
 	public List<Product> getAll() {
 		System.out.println("get all product using map");
 		return new LinkedList<>(map.values());
+	}
+	
+	@Override
+	public Product getById(int productId) {
+		System.out.println("get byid product using map");
+		return map.get(productId);
+	}
+
+	@Override
+	public Product addProduct(Product product) {
+		System.out.println("addProduct product using map");
+		product.setId(++counter);
+		map.put(counter, product);
+
+		return product;
+	}
+
+	@Override
+	public Product updateProduct(int productId, Product product) {
+		System.out.println("updateProduct product using map");
+		Product productToUpdate = getById(productId);
+		if (productToUpdate != null) {
+			productToUpdate.setPrice(product.getPrice());
+			map.put(productToUpdate.getId(), productToUpdate);
+
+		}
+		return productToUpdate;
+	}
+
+	@Override
+	public Product deleteProduct(int productId) {
+		System.out.println("deleteProduct product using map");
+		Product productToDelete = getById(productId);
+		if (productToDelete != null)
+			map.remove(productId);
+		return productToDelete;
 	}
 }
