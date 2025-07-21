@@ -11,9 +11,7 @@ import com.productapp.models.Product;
 import com.productapp.repositories.ProductRepo;
 //Service layer =BL + CCC**
 @Service
-@Transactional //acid explict tx mgt :( hibernate jpa
-
-				// declative implict tx mgt : @Transactional
+@Transactional 
 
 public class ProductServiceImpl implements ProductService {
 	
