@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import com.productapp.dto.ErrorMessageDto;
 import com.productapp.exceptions.ProductNotFoundException;
 
-@RestControllerAdvice //all ex handing is done?
+//@RestControllerAdvice //all ex handing is done?
 public class ProductExHandlerController {
 
+	public ProductExHandlerController() {}
+	
 	@ExceptionHandler(ProductNotFoundException.class)
 	public ResponseEntity<ErrorMessageDto> handle404(ProductNotFoundException ex) {
 		ErrorMessageDto dto=new ErrorMessageDto
