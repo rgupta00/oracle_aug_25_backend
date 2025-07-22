@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.productapp.models.Product;
 import com.productapp.services.ProductService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping(path = "api")
 public class ProductController {
@@ -29,15 +32,18 @@ public class ProductController {
 	}
 
 	// get all products
-	@GetMapping(path = "products")
+	@GetMapping(path = "products", produces = { MediaType.APPLICATION_JSON_VALUE, 
+											MediaType.APPLICATION_XML_VALUE })
 	public ResponseEntity<List<Product>> getAllProducts() {
-		if(1==1)
-			throw new RuntimeException("some error");
 		return ResponseEntity.ok(productService.getAll());
 	}
 
+	// hey parser u will populate data into the object but before it just check is
+	// validation is resp or not
+	// MethodArgumentNotValidException
+
 	@PostMapping(path = "products")
-	public ResponseEntity<Product> addProduct(@RequestBody Product product) {
+	public ResponseEntity<Product> addProduct(@Valid @RequestBody Product product) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(productService.addProduct(product));
 	}
 
@@ -50,7 +56,7 @@ public class ProductController {
 	// get product by id
 	@GetMapping(path = "products/{productId}")
 	public ResponseEntity<Product> getProductById(@PathVariable int productId) {
-		
+
 		return ResponseEntity.ok(productService.getById(productId));
 	}
 
@@ -58,25 +64,13 @@ public class ProductController {
 
 	@DeleteMapping(path = "products/{productId}")
 	public ResponseEntity<Void> deleteProductById(@PathVariable int productId) {
-		 productService.deleteById(productId);
-		 return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+		productService.deleteById(productId);
+		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}
 
 	// update
 	@PutMapping(path = "products/{productId}")
-	public ResponseEntity<Product> updateProduct(@PathVariable int productId, @RequestBody Product product) {
-		return ResponseEntity
-				.ok(productService.update(productId, product));
+	public ResponseEntity<Product> updateProduct(@PathVariable int productId, @Valid @RequestBody Product product) {
+		return ResponseEntity.ok(productService.update(productId, product));
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
