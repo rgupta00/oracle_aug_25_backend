@@ -1,13 +1,13 @@
-package com.coupon;
+package com.demo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CouponappApplication {
+public class KafkaConsumerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CouponappApplication.class, args);
+		SpringApplication.run(KafkaConsumerApplication.class, args);
 	}
 
 }

@@ -1,13 +1,13 @@
-package com.coupon;
+package com.productapp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CouponappApplication {
+public class ProductapppaginationApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CouponappApplication.class, args);
+		SpringApplication.run(ProductapppaginationApplication.class, args);
 	}
 
 }
