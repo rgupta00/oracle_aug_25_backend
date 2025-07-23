@@ -13,7 +13,9 @@ public class ProducerController {
 	
 	@GetMapping(path="producer/{message}")
 	public String sendMessage(@PathVariable  String message) {
-		producerService.produce(message);
+		  for(int i=0;i<5000;i++){
+			  	producerService.produce(message+ " "+ i);
+		  }
 		return "message is send";
 	}
 }
