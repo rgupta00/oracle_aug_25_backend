@@ -17,7 +17,7 @@ import lombok.extern.log4j.Log4j2;
 public class ProducerService {
 
 	@Autowired
-	private KafkaTemplate<String, Order> kafkaTemplate;
+	private KafkaTemplate<String, Object> kafkaTemplate;
 
 	public void produce(Order order) {
 		log.info("messge is send to the kafka server-----------");
