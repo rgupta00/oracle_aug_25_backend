@@ -1,20 +1,56 @@
 server:
   port: 8082
+
+#i wnat to configre openfeign with circuit breaker
 spring:
-  profiles:
-    active:
-      - "default"
+  cloud:
+    openfeign:
+      circuitbreaker:
+        enabled: true
+      
   application:
     name: products
+  profiles:
+    active: default
+  
+# 3?
+management:
   endpoints:
     web:
       exposure:
-        include: "*"
+        include: health, info, metrics, prometheus, circuitbreakers
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: "*" #health, info, metrics, prometheus, circuitbreakers
   endpoint:
     shutdown:
       enabled: true
   info:
     env:
       enabled: true
+
+#?
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        sliding-window-size: 10
+        permitted-number-of-calls-in-half-open-state: 2
+        automatic-transition-from-open-to-half-open-enabled: true
+        failure-rate-threshold: 50
+        wait-duration-in-open-state: 10s
+        max-wait-duration-in-half-open-state: 5s
+        
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8070/eureka/
+
 data:
-  info: dev profile productservice
+  info: default profile productservice

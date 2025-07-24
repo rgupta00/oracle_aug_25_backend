@@ -20,7 +20,7 @@ public class CouponServiceImpl implements CouponService {
     }
     @Override
     public Coupon getCouponByCode(String couponCode) {
-        logger.info("Inside getCouponByCode: is called----instance 1 is called");
+        logger.info("Inside getCouponByCode: is called");
         Coupon coupon= couponMap.get(couponCode);
         logger.info("Inside getCouponByCode: is finished");
         return coupon;
