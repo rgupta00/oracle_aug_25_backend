@@ -14,6 +14,10 @@ eureka:
       defaultZone: http://localhost:8070/eureka/
 
 management:
+  tracing:
+    sampling:
+      probability: 1.0
+      
   endpoints:
     web:
       exposure:
@@ -29,3 +33,7 @@ management:
     health:
       probes:
         enabled: true
+        
+logging:
+  pattern:
+    level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"

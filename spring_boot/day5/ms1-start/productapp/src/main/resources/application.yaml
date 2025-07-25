@@ -17,6 +17,10 @@ spring:
   
 # 3?
 management:
+  tracing:
+    sampling:
+      probability: 1.0
+      
   endpoints:
     web:
       exposure:
@@ -51,3 +55,7 @@ eureka:
 
 data:
   info: default profile productservice
+  
+logging:
+  pattern:
+    level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
