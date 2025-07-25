@@ -3,6 +3,8 @@ server:
 
 #i wnat to configre openfeign with circuit breaker
 spring:
+  config:
+    import: optional:configserver:http://localhost:8888
   cloud:
     openfeign:
       circuitbreaker:
@@ -19,11 +21,6 @@ management:
     web:
       exposure:
         include: health, info, metrics, prometheus, circuitbreakers
-#management:
-#  endpoints:
-#    web:
-#      exposure:
-#        include: "*" #health, info, metrics, prometheus, circuitbreakers
   endpoint:
     shutdown:
       enabled: true

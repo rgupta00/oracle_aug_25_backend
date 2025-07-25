@@ -1,6 +1,8 @@
 server:
   port: 8083
 spring:
+  config:
+    import: optional:configserver:http://localhost:8888
   profiles:
     active:
       - "default"
@@ -24,7 +26,16 @@ eureka:
     fetch-registry: true
     service-url:
       defaultZone: http://localhost:8070/eureka/
-
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: refresh
 data:
   info: default profile couponservice
 
