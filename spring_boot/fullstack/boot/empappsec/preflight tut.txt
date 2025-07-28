@@ -1,0 +1,60 @@
+💡 What is a Preflight Request?
+-----------------------------------
+When a browser sends a cross-origin HTTP request (CORS), it may first ask the server for permission to make that request.
+
+This is done using a special preflight request:
+
+OPTIONS /api/user HTTP/1.1
+Origin: http://localhost:4200
+Access-Control-Request-Method: POST
+Access-Control-Request-Headers: Content-Type
+So before making the actual POST, PUT, or DELETE, the browser checks:
+
+“Hey server, is it okay if I send a request from localhost:4200 using POST with custom headers?”
+
+The server must respond like:
+-------------------------
+HTTP/1.1 200 OK
+Access-Control-Allow-Origin: http://localhost:4200
+Access-Control-Allow-Methods: POST, GET, OPTIONS
+If the server denies this, the browser blocks the real request!
+
+🧠 So, What Does This Do?
+-------------------------------
+.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+
+This line allows all incoming OPTIONS requests—which are these preflight checks—to be handled without authentication.
+
+Why Is It Needed in a Secured API?
+--------------------------------------------
+
+In a REST API secured with Spring Security:
+You may require Authorization headers (basic/JWT/etc.).
+The preflight request is just a check, not the actual request.
+
+
+But if Spring Security blocks the OPTIONS request (because it’s unauthenticated), the browser will cancel the actual call.
+
+So you must allow OPTIONS requests to flow freely, otherwise the frontend will never even reach the backend for real.
+
+Without That Line
+--------------------------------------
+.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+
+You’ll see CORS errors in your browser console like:
+
+CORS policy: Response to preflight request doesn't pass access control check
+
+Even if the actual endpoint is fine!
+
+Summary: Concept								Meaning
+----------------------------------------------------
+OPTIONS request					A "preflight" request sent by the browser to check if CORS is allowed
+
+Why permit it?					So Spring Security doesn’t block the browser before actual requests
+
+Is it a risk?					No — it's only granting unauthenticated access to the preflight check, not your real endpoints
+
+When is it needed?				Always in CORS-secured APIs when your frontend and backend are on 
+									different domains or ports (like Angular on localhost:4200 and backend on localhost:8080)
+

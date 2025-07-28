@@ -2,6 +2,11 @@
 server:
   port: 8072
 spring:
+#  security:
+#    oauth2:
+#      resourceserver:
+#        jwt:
+#          jwk-set-uri: "http://localhost:8080/realms/master/protocol/openid-connect/certs"
   application:
     name: gateway
 eureka:
@@ -37,3 +42,4 @@ management:
 logging:
   pattern:
     level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
+   
