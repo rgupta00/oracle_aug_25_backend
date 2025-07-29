@@ -124,7 +124,7 @@
 										<limit>
 											<counter>LINE</counter>
 											<value>COVEREDRATIO</value>
-											<minimum>00%</minimum>
+											<minimum>90%</minimum>
 										</limit>
 									</limits>
 								</rule>
@@ -146,6 +146,7 @@
 					<excludedGroups>dev</excludedGroups>
 				</configuration>
 			</plugin>
+			
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>

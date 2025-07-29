@@ -18,9 +18,9 @@ import java.math.BigDecimal;
 @EnableAspectJAutoProxy
 @SpringBootApplication
 public class Productappv1Application implements CommandLineRunner {
-
-	@Autowired
-	private ProductRepo productRepo;
+//
+//	@Autowired
+//	private ProductRepo productRepo;
 
 	public static void main(String[] args) {
 		SpringApplication.run(Productappv1Application.class, args);

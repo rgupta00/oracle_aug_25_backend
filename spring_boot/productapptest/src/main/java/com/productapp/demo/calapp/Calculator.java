@@ -1,17 +1,19 @@
 package com.productapp.demo.calapp;
 
 public class Calculator {
-    public int add(int a, int b){
-        return a+b;
-    }
 
-    public int mul(int a, int b){
-        return a*b;
-    }
-    public int divide(int a, int b){
-        if(b==0)
-            throw new ArithmeticException("divide by zero");
-        return a/b;
-    }
+	public int add(int i, int j) {
+		return i+j;
+	}
 
+	public int mul(int i, int j) {
+		return i*j;
+	}
+	public int divide(int i, int j) {
+		if(j==0)
+			throw new ArithmeticException("divide by zero");
+		return i/j;
+	}
+	
+   
 }

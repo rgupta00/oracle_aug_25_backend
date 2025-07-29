@@ -12,9 +12,14 @@ public class BookServiceImpl implements BookService {
 		this.bookDao = bookDao;
 	}
 
+	public BookServiceImpl(BookDao bookDao) {
+		this.bookDao = bookDao;
+	}
+
 	@Override
 	public List<String> getBooks(String subject) {
-		return bookDao.getBooks().stream().filter(title -> title.contains(subject)).collect(Collectors.toList());
+		return bookDao.getBooks().stream()
+				.filter(title -> title.contains(subject)).collect(Collectors.toList());
 	}
 
 }
