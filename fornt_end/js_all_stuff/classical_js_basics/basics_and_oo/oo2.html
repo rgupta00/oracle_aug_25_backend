@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        //class kb is a syntex suger on the top of constructor fuction
+        // class Employee{
+        // }
+
+        // let e=new Employee();
+        
+        // console.log(typeof e)
+        //  console.log(typeof Employee)
+
+        //ES6+
+        class Person{
+            constructor(name, salary){
+                this.name=name
+                this.salary=salary
+            }
+            print(){
+                console.log(`this details of this person is ${this.name} and ${this.salary}`)
+            }
+            changeSalary(changeSal){
+                this.salary=changeSal;
+            }
+        }
+        
+        let p=new Person('raj',5000)
+        let p2=new Person('raj',5000)
+        console.log(p.print==p2.print)
+        p.print();
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p id="demo"></p>
+    <p class="info">Text</p>
+
+    <ul>
+        <li class="item">One</li>
+        <li class="item">Two</li>
+   </ul>
+    <script>
+        document.getElementById("demo").innerHTML='some text added'
+        document.querySelector(".info").innerHTML='some text added with the query selector'
+
+        const arr=document.querySelectorAll(".item")
+        
+         arr.forEach(el => el.style.color = "blue");
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,1 @@
+ng new myapp --standalone --routing --style=css

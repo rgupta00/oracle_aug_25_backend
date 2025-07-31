@@ -1,0 +1,28 @@
+<table>
+    <thead>
+        <tr>
+            <th>Code</th>
+            <th>Name</th>
+            <th>Gender</th>
+            <th>Annual Salary</th>
+            <th>Date of Birth</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (employees.length > 0) {
+        @for (employee of employees; track employee.code) {
+        <tr>
+            <td>{{ employee.code }}</td>
+            <td>{{ employee.name | empTitle:employee.gender }}</td>
+            <td>{{ employee.gender }}</td>
+            <td>{{ employee.annualSalary }}</td>
+            <td>{{ employee.dateOfBirth }}</td>
+        </tr>
+        }
+        } @else {
+        <tr>
+            <td colspan="5">No employees to display</td>
+        </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+   <script>
+// 1. var vs let hoisting and function scope
+
+//why not to use var? let or var : hoisting in javascript => flat hositing
+// var flag = true;
+// if (flag) {
+// 	var fname = "rajeev";
+// }
+//declartion and initilaction
+
+// var flag = true;
+// if (flag) {
+// 	let fname = "rajeev";
+// }
+// console.log(fname); // Accessible — not block scoped
+
+// let x;
+// // console.log(x)
+// x=9
+
+// var greeting = "good morning";
+// var greeting = "good evening"; //  No error
+// console.log(greeting); // Output: "good evening"
+
+
+// let greeting = "good morning";
+// let greeting = "good evening"; //  No error
+// console.log(greeting); // Output: "good evening"
+
+// function greetPerson(name) {
+// 	if (name === "rajeev") {
+// 		let greet = "hello programmer";
+// 	} else {
+// 		let greet = "hello person";
+// 	}
+// 	console.log(greet); //  
+// }
+// greetPerson('rajeev')
+
+
+
+
+
+
+
+// 2. const in ES6
+//constant pointer vs pointer to constant
+// m=88;
+// const int *p=&m;
+// p.m=888
+// const  a={
+//     "name":"amit"
+// }
+// a.name="amit ji"
+// console.log(a)
+
+// 3. Arrow function, functional programming in JS
+const companies = [
+	{name: "Company One", category: "Finance", start: 1981, end: 2003},
+	{name: "Company Two", category: "Retail", start: 1992, end: 2008},
+	{name: "Company Three", category: "Auto", start: 1999, end: 2007},
+	{name: "Company Four", category: "Retail", start: 1989, end: 2010},
+	{name: "Company Five", category: "Technology", start: 2009, end: 2014},
+	{name: "Company Six", category: "Finance", start: 1987, end: 2010},
+	{name: "Company Seven", category: "Auto", start: 1986, end: 1996},
+	{name: "Company Eight", category: "Technology", start: 2011, end: 2016},
+	{name: "Company Nine", category: "Retail", start: 1981, end: 1989}
+];
+// companies.forEach(c=> console.log(c))
+// companies.filter(c=> c.category=='Retail').filter(c=> c.category=='Technology').forEach(c=>console.log(c))
+
+// const companies80 = companies.filter(company => company.start >= 1980 && company.start <= 1990);
+// companies80.forEach(c=> console.log(c))
+
+// const companiesMore10 = companies.filter(company => 
+// 	(company.end - company.start) >= 10
+// );
+// console.table(companiesMore10);
+
+
+//const ages = [33, 12, 20, 16, 5, 54, 21, 44, 61, 13, 15, 45, 25, 64, 32];
+//print all ages using funcational programming
+// ages.forEach(a=> console.log(a))
+// ages.filter(age=> age>=21).forEach(age=> console.log(age))
+
+// ages.sort((a, b)=> a>b).forEach(a=> console.log(a))
+
+// ages.sort(function(a, b){
+//     return a-b
+// })
+// .forEach(function(a){
+//     console.log(a)
+// })
+
+//ages.sort((a, b)=> a-b).forEach(a=>console.log(a))
+
+//higher order function
+
+// function foo(name, callback){
+//     callback(name)
+// }
+// let f=function(name){
+//     console.log(name)
+// }
+// foo('abc', f)
+
+
+// 4. Default value to function arguments
+
+// let f=(a=1, b=3)=>a+b;
+
+// console.log(f(undefined, 4))
+
+// 5. Rest operation in ES6 (aka variable argument methods in Java)
+
+// let f1=function(...colors){
+//     colors.forEach(c=> console.log(c))
+// }
+// f1('red',"blue",'white')
+
+// let f1=function(){
+//     arguments.forEach(c=> console.log(c))
+// }
+// f1('red',"blue",'white')
+
+
+// 6. Spread operator in ES6
+// let arr = [1, 2, 3];
+// console.log(...arr);  // 1 2 3
+
+// 7. Spread operator with object literals
+
+    // const original = [10, 20, 30];
+    // const copy = original;//shallow copy
+    // original[1]=999
+    // console.log(copy); // [10, 20, 30]
+
+    /// const original = [10, 20, 30];
+    /// const copy = [...original]// deep copy
+    /// original[1]=999
+    /// console.log(copy); // [10, 20, 30]
+
+//   let o1 = { "a": "raj" };
+//   let o2 = { "a": "ekta" };
+
+//   const original = [o1, o2];
+//   const copy =[...original]; // shallow copy
+
+//   original[0].a = 'rajiv'; // ✅ Correct way to update first object
+
+//  console.log(copy); // [{ a: 'rajiv' }, { a: 'ekta' }]
+
+
+    // const original = [10, 20, 30];
+    // const copy = [...original]// deep copy
+    // original[1]=999
+    // console.log(copy); // [10, 20, 30]
+
+
+// 8. Destructuring array
+// 9. Destructuring objects
+
+// let employee = ["rajeev", "gupta", "Male", "Trainer", "Delhi"];
+// //let [fname,lname,gender, job,city] = employee;
+// let [fname, ...rest] = employee;
+
+// console.log(fname); // rajeev
+// console.log(rest);  // [ 'gupta', 'Male', 'Trainer', 'Delhi' ]
+
+// const msg = {
+//     name: "rajeev gupta",
+//     desi: "trainer",
+//     hobby: "traveling",
+//     social: {
+//         twitter: "@rajeev_gupta76",
+//         facebook: "https://www.facebook.com/profile.php?id=100021806671318"
+//     }
+// };
+// console.log(`the value is ${msg.name} and `)
+
+//const { name, desi, hobby, social } = msg;
+
+
+// 10. String templates ``
+// 11. for...of loop (used with iterables)
+
+// 12. ES6 Classes
+//    - Types of functions in a class
+//    - Class inheritance
+//ctr function
+//creating classes getter setter static method inheritance etc
+// class Persson{
+//     constructor(name, address){
+//         this.name=name;
+//         this.address=address
+//     }
+//     get details(){
+//         return `the full name of the person ${this.name} and address is ${this.address}`;
+//     }
+//     set setAddress(newAddess){
+//         this.address=newAddess;
+//     }
+//     static personFactory(name, address){
+//         return new Persson(name, address);
+//     }
+//     print(){
+//         return `the full name of the person ${this.name} and address is ${this.address}`;
+//     }
+// }
+// class Employee extends Persson{
+//     constructor(name, address, salary){
+//         super(name,address)
+//         this.salary=salary
+//     }
+    
+//     print(){
+//         super.print();
+//         return `the full name of the person ${this.name} and address is ${this.address} and salary is ${this.salary}`;
+//     }
+// }
+
+// let e=new Employee('raj','bg',7000)
+// console.log(e.print())
+
+// let p=new Persson('raj','banglore')
+// console.log(p.details)
+// let p2=Persson.personFactory('ekta','delhi');
+
+// class Person {
+//   constructor(name) {
+//     this._name = name;
+//   }
+
+//   getName() {
+//     return this._name;
+//   }
+// }
+
+// const p = new Person("Bob");
+// console.log(p._name);
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 13. Set and Map in ES6
+
+
+
+// 14. modules
+   </script> 
+</body>
+</html>
