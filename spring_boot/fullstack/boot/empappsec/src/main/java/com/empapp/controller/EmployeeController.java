@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.empapp.dto.AuthResponse;
 import com.empapp.entities.Employee;
 import com.empapp.service.EmployeeService;
 @CrossOrigin
@@ -22,7 +23,10 @@ public class EmployeeController {
 	public EmployeeController(EmployeeService employeeService) {
 		this.employeeService = employeeService;
 	}
-	
+	@GetMapping(path="validateLogin")
+	public AuthResponse validateLogin() {
+			return new AuthResponse("User successfully authenticated");
+	}
 	//http://localhost:8080/employees
 	//get all
 	@GetMapping(path="employees")
