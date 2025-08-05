@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+     <title>Knockout Hello World</title>
+</head>
+<body>
+
+  <script src="knockout-3.5.1.js"></script>
+   <h2>Employee List</h2>
+
+  <ul data-bind="foreach: employees">
+    <li>
+      <strong data-bind="text: name"></strong> -
+      <span data-bind="text: designation"></span>
+    </li>
+  </ul>
+
+  <script>
+    function AppViewModel() {
+      this.employees = ko.observableArray([
+        { name: "Rajeev", designation: "Trainer" },
+        { name: "Amit", designation: "Engineer" },
+        { name: "Riya", designation: "Analyst" }
+      ]);
+    }
+
+    ko.applyBindings(new AppViewModel());
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,44 @@
+-Xmx50m -verbose:gc
+
+
+check adaptive policy 
+
+jinfo -flag UseAdaptiveSizePolicy pid
+jinfo -flag NewRatio pid
+
+changing ration of young to old gen
+-Xmx20m -XX:NewRatio=1 -verbose:gc
+
+-Xmx20m -XX:NewRatio=4 -verbose:gc
+-Xmx20m -XX:NewRatio=8 -verbose:gc
+ie OG is 4 time of YG
+
+
+how much memory for s0 and s1 space
+jinfo -flag SurvivorRatio 7476
+default is 8
+
+Changing ration
+-Xmx20m  -XX:NewRatio=8 -XX:SurvivorRatio=8 -verbose:gc
+
+it means that s0 and s1 is 1/8 of the YG
+
+
+-Xmx20m  -XX:NewRatio=8 -XX:SurvivorRatio=12 -verbose:gc
+s0 and s1 is 1/12 of the YG
+
+
+
+
+
+how many cycle object servive before moving to old gen?
+
+
+jinfo -flag MaxTenuringThreshold 7476
+
+
+Changing ration
+-Xmx20m   -XX:MaxTenuringThreshold=8  -XX:NewRatio=1 -XX:SurvivorRatio=5 -verbose:gc
+
+https://eclipse.dev/mat/previousReleases.php
+

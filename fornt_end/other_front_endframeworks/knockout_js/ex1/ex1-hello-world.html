@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+     <title>Knockout Hello World</title>
+</head>
+<body>
+
+  <h2>Knockout Hello World</h2>
+
+  <p>Name: <input data-bind="value: name" /></p>
+  <p>Hello, <span data-bind="text: name"></span>!</p>
+  <script src="knockout-3.5.1.js"></script>
+  <script>
+    function AppViewModel() {
+      this.name = ko.observable("Rajeev");
+    }
+
+    ko.applyBindings(new AppViewModel());
+  </script>
+
+</body>
+</html>

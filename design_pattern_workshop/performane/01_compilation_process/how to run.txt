@@ -1,0 +1,24 @@
+understanding JIT compilation process
+
+java -XX:+PrintCompilation Main 10
+
+understanding JIT compilation process puting output to a file
+
+java -XX:+UnlockDiagnosticVMOptions -XX:+LogCompilation Main 5000
+
+checking size of code cache
+java -XX:+PrintCodeCache Main 5000
+
+Tuning the code cache size
+-XX:ReservedCodeCacheSize=32m
+
+ReservedCodeCacheSize and InitialCodeCacheSize
+https://stackoverflow.com/questions/7513185/what-are-reservedcodecachesize-and-initialcodecachesize
+
+Example:
+java -XX:ReservedCodeCacheSize=28m -XX:+PrintCodeCodeCache Main 5000
+
+
+run with more no of thread to compile (cache) our code
+
+java -XX:CICompilerCount=6 -XX:+PrintCompilation Main 5000

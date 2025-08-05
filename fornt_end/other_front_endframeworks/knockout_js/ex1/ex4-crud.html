@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Employee CRUD - KnockoutJS</title>
+  <script src="knockout-3.5.1.js"></script>
+  <link rel="stylesheet" href="demo.css">
+</head>
+
+<body>
+  <h2>Employee List</h2>
+
+  <form data-bind="submit: addOrUpdateEmployee">
+    <input placeholder="Name" data-bind="value: name" required />
+    <input type="number" placeholder="Salary" data-bind="value: salary" required />
+    <button type="submit" data-bind="text: editingId() ? 'Update' : 'Add'"></button>
+    <button type="button" data-bind="click: resetForm, visible: editingId">Cancel</button>
+  </form>
+
+  <ul data-bind="foreach: employees">
+    <li>
+      <strong data-bind="text: name"></strong> -
+      ₹<span data-bind="text: salary"></span>
+      <button data-bind="click: $parent.editEmployee">Edit</button>
+      <button data-bind="click: $parent.deleteEmployee">Delete</button>
+    </li>
+  </ul>
+
+  <script>
+    function AppViewModel() {
+      var self = this;
+
+      self.employees = ko.observableArray([]);
+      self.name = ko.observable('');
+      self.salary = ko.observable('');
+      self.editingId = ko.observable(null);
+
+      self.loadEmployees = function () {
+        fetch("http://localhost:8080/employees")
+          .then(res => res.json())
+          .then(data => self.employees(data));
+      };
+
+      self.addOrUpdateEmployee = function () {
+        const emp = {
+          name: self.name(),
+          salary: parseFloat(self.salary())
+        };
+
+        if (self.editingId()) {
+          fetch(`http://localhost:8080/employees/${self.editingId()}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(emp)
+          }).then(() => {
+            self.loadEmployees();
+            self.resetForm();
+          });
+        } else {
+          fetch("http://localhost:8080/employees", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(emp)
+          }).then(() => {
+            self.loadEmployees();
+            self.resetForm();
+          });
+        }
+      };
+
+      self.editEmployee = function (emp) {
+        self.name(emp.name);
+        self.salary(emp.salary);
+        self.editingId(emp.id);
+      };
+
+      self.deleteEmployee = function (emp) {
+        fetch(`http://localhost:8080/employees/${emp.id}`, {
+          method: "DELETE"
+        }).then(() => self.loadEmployees());
+      };
+
+      self.resetForm = function () {
+        self.name('');
+        self.salary('');
+        self.editingId(null);
+      };
+
+      self.loadEmployees();
+    }
+
+    ko.applyBindings(new AppViewModel());
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,14 @@
+logging:
+  level:
+    org.apache.kafka.streams: INFO
+spring:
+  kafka:
+    streams:
+      application-id: word-count-app
+      bootstrap-servers: localhost:29092
+      properties:
+        auto.offset.reset: earliest
+        cache.max.bytes.buffering: 0
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer

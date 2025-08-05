@@ -1,0 +1,13 @@
+String optimzation process
+
+java -XX:+PrintStringTableStatistics
+https://stackoverflow.com/questions/27719820/how-many-strings-are-in-jvm-string-pool-intern
+
+
+increasing string bucket size
+
+java -XX:+PrintStringTableStatistics -XX:StringTableSize=120171 Main
+
+increasing string pool size and priting the statitics togather
+java -Xms2g -XX:+PrintStringTableStatistics -XX:StringTableSize=120171 Main
+java -XX:MaxHeapSize=600m -XX:+PrintStringTableStatistics -XX:StringTableSize=120171 Main
