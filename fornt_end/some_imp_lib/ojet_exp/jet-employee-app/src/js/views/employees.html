@@ -1,0 +1,26 @@
+<!--
+ Copyright (c) 2014, 2025, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<!-- <div class="oj-hybrid-padding">
+  <h1>About Content Area</h1>
+  <div>
+      employees data
+  </div>
+</div> -->
+<div class="oj-flex oj-sm-padding-4x">
+  <div class="oj-flex-item oj-sm-12">
+    <h2>Employee Records</h2>
+
+    <oj-table
+      data="[[dataProvider]]"
+      columns='[
+        {"headerText": "ID", "field": "id"},
+        {"headerText": "Name", "field": "name"},
+        {"headerText": "Salary", "field": "salary"}
+      ]'
+      selection-mode.row="none">
+    </oj-table>
+  </div>
+</div>

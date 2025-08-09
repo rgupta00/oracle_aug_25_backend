@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Employee List</title>
+    <script src="js/knockout-3.5.1.js"></script>
+</head>
+
+<body>
+    <h2>Employees</h2>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Salary</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody data-bind="foreach: employees">
+            <tr>
+                <td data-bind="text: id"></td>
+                <td data-bind="text: name"></td>
+                <td data-bind="text: salary"></td>
+                <td><button data-bind="click: $parent.removeEmployee">Remove</button></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>Add New Employee</h3>
+    <p>
+        Name: <input data-bind="value: newName, valueUpdate: 'afterkeydown'" />
+        Salary: <input data-bind="value: newSalary, valueUpdate: 'afterkeydown'" />
+        <button data-bind="click: addEmployee">Add</button>
+    </p>
+
+    <script>
+        function Employee(id, name, salary) {
+            this.id = id;
+            this.name = name;
+            this.salary = salary;
+        }
+
+        function AppViewModel() {
+            var self = this;
+
+            self.employees = ko.observableArray([]);
+            self.newName = ko.observable("");
+            self.newSalary = ko.observable("");
+
+            self.loadEmployees = function () {
+                fetch('http://localhost:8080/employees')  // update path if needed
+                    .then(res => res.json())
+                    .then(data => {
+                        const mapped = data.map(emp => new Employee(emp.id, emp.name, emp.salary));
+                        self.employees(mapped);
+                    })
+                    .catch(err => console.error("Error loading employees:", err));
+            };
+
+            self.addEmployee = function () {
+                const name = self.newName().trim();
+                const salary = parseFloat(self.newSalary());
+                if (name && !isNaN(salary)) {
+                    fetch("http://localhost:8080/employees", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({ name, salary })
+                    })
+                        .then(res => res.json())
+                        .then(data => {
+                            const added = new Employee(data.id, data.name, data.salary);
+                            self.employees.push(added);
+                            self.newName("");
+                            self.newSalary("");
+                        })
+                        .catch(err => console.error("Add failed:", err));
+                }
+            };
+
+
+            self.removeEmployee = function (emp) {
+                self.employees.remove(emp);
+            };
+
+            // load data initially
+            self.loadEmployees();
+        }
+
+        ko.applyBindings(new AppViewModel());
+    </script>
+</body>

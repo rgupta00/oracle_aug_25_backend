@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="js/knockout-3.5.1.js"></script>
+
+    <!-- View: HTML markup with data-bind -->
+    <!-- View: HTML markup with data-bind
+   
+    This enables two-way binding:
+    If the user types in the box, firstString and secondString in the ViewModel get updated.
+    If the ViewModel value changes in code, the input field gets updated automatically.
+  -->
+    <p>First String: <input data-bind="value: firstString" /></p>
+    <p>Second String: <input data-bind="value: secondString" /></p>
+
+      <!--They are updated in real-time as the user types — this is one-way binding (ViewModel → View).-->
+    <p>First String: <strong data-bind="text: firstString"></strong></p>
+    <p>Second String: <strong data-bind="text: secondString"></strong></p>
+
+     <!--
+    This displays the computed value — a live concatenation of both strings.
+    If either input changes, thirdString auto-recalculates — this is dependency tracking
+    -->
+
+    <p>Derived String: <strong data-bind="text: thirdString"></strong></p>
+
+    <script>
+        // ViewModel: JS logic and data
+        //ko.observable(...) creates a reactive variable.
+        //Knockout tracks changes to observables.
+        function AppViewModel() {
+            this.firstString = ko.observable("Enter First String");
+            this.secondString = ko.observable("Enter Second String");
+
+             //ko.computed(...) is a special function that reacts to changes in its dependencies (firstString and secondString).
+                //Whenever either input is changed, thirdString() auto-updates.
+
+            this.thirdString = ko.computed(function () {
+                return this.firstString() + " " + this.secondString();
+            }, this);
+        }
+
+        // Activate Knockout bindings
+        ko.applyBindings(new AppViewModel());
+    </script>
+
+</body>
+
+</html>
