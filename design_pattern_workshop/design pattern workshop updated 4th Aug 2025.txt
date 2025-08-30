@@ -81,33 +81,43 @@ Understanding Abstraction:
 
 Need of Method abst:
 ---------------------
-class StackImpUsingArray {
-	private int x[];
-	private final int SIZE;
-	private int top;
-	
-	public StackImpUsingArray(int size) {
-		this.SIZE=size;
-		top=-1;
-		
-	}
-	
-	
-	public void push(int element){
-		if(top>=SIZE)
-			return ;
-		else
-			x[top++]=element;
-	}
-	
-	
-	public int pop(){
-		if(top==-1)
-			return -99;
-		else
-			return x[top--];
-	}
+public class StackImpUsingArray {
+    private int[] x;
+    private final int SIZE;
+    private int top;
+
+    public StackImpUsingArray(int size) {
+        this.SIZE = size;
+        this.x = new int[SIZE]; // Allocate memory for array
+        this.top = -1;          // Stack is empty initially
+    }
+
+    public void push(int element) {
+        if (top >= SIZE - 1) {
+            System.out.println("Stack Overflow! Cannot push " + element);
+        } else {
+            x[++top] = element; // Increment top first, then insert
+        }
+    }
+
+    public int pop() {
+        if (top == -1) {
+            System.out.println("Stack Underflow!");
+            return -99; // Error value
+        } else {
+            return x[top--]; // Return element, then decrement top
+        }
+    }
+
+    public boolean isEmpty() {
+        return top == -1;
+    }
+
+    public boolean isFull() {
+        return top == SIZE - 1;
+    }
 }
+
 
 
 
@@ -829,69 +839,129 @@ Builder Pattern
 		//
 		
 	}
-		
-	// FoodBuilder.java
-	public class FoodBuilder {
-
-		private String name;
-		private int unit;
-		private int vitC = 100;
-		private int vitA = 100;
-		private int vitB12 = 100;
-		private int vitB5 = 100;
-		private int vitD = 5000;
-
-		public FoodBuilder(String name, int unit) {
-			this.name = name;
-			this.unit = unit;
-		}
-
-		public FoodBuilder setVitC(int vitC) {
-			this.vitC = vitC;
-			return this;
-		}
-
-		public FoodBuilder setVitA(int vitA) {
-			this.vitA = vitA;
-			return this;
-		}
-
-		public FoodBuilder setVitB12(int vitB12) {
-			this.vitB12 = vitB12;
-			return this;
-		}
-
-		public FoodBuilder setVitB5(int vitB5) {
-			this.vitB5 = vitB5;
-			return this;
-		}
-
-		public FoodBuilder setVitD(int vitD) {
-			this.vitD = vitD;
-			return this;
-		}
-
-		public FoodBuilder setName(String name) {
-			this.name = name;
-			return this;
-		}
-
-		public Food build() {
-			return new Food(name, unit, vitC, vitA, vitB12, vitB5, vitD);
-		}
-	}
-
-
-	public class DemoBuilder {
 	
-		public static void main(String[] args) {
-			Food food=new FoodBuilder("apple", 400).setVitA(5000).build();
-		}
-	}
+	
+	Builder Pattern
+===========================	
+	public class Food {
+    private final String name;
+    private final int unit;
+    private final int vitC;
+    private final int vitA;
+    private final int vitB12;
+    private final int vitB5;
+    private final int vitD;
+
+    // Private constructor — only the Builder can create Food
+    private Food(Builder builder) {
+        this.name = builder.name;
+        this.unit = builder.unit;
+        this.vitC = builder.vitC;
+        this.vitA = builder.vitA;
+        this.vitB12 = builder.vitB12;
+        this.vitB5 = builder.vitB5;
+        this.vitD = builder.vitD;
+    }
+
+    // Static Inner Builder Class
+    public static class Builder {
+        private String name;
+        private int unit;
+        private int vitC = 100;
+        private int vitA = 100;
+        private int vitB12 = 100;
+        private int vitB5 = 100;
+        private int vitD = 5000;
+
+        public Builder(String name, int unit) {
+            this.name = name;
+            this.unit = unit;
+        }
+
+        public Builder setVitC(int vitC) {
+            this.vitC = vitC;
+            return this;
+        }
+
+        public Builder setVitA(int vitA) {
+            this.vitA = vitA;
+            return this;
+        }
+
+        public Builder setVitB12(int vitB12) {
+            this.vitB12 = vitB12;
+            return this;
+        }
+
+        public Builder setVitB5(int vitB5) {
+            this.vitB5 = vitB5;
+            return this;
+        }
+
+        public Builder setVitD(int vitD) {
+            this.vitD = vitD;
+            return this;
+        }
+
+        public Builder setName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Food build() {
+            return new Food(this);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Food{" +
+                "name='" + name + '\'' +
+                ", unit=" + unit +
+                ", vitC=" + vitC +
+                ", vitA=" + vitA +
+                ", vitB12=" + vitB12 +
+                ", vitB5=" + vitB5 +
+                ", vitD=" + vitD +
+                '}';
+    }
+}
+
+
+
+public class DemoBuilder {
+    public static void main(String[] args) {
+        Food food = new Food.Builder("Apple", 400)
+                .setVitA(5000)
+                .setVitC(300)
+                .build();
+
+        System.out.println(food);
+    }
+}
+
 
 	
-	Factory Method
-	===============
+Builder Pattern with static inner class:
+-----------------------------------------------
+	The Food object is immutable (all fields final, no setters).
+	The Builder is a static inner class of Food.
+	The only way to create Food is through Builder.build().
+	Method chaining works for cleaner object creation.
+
+
+
+
+
+
+
+
+
+
+
+
+Factory Method
+===============
 	Defind an interface for creating an object, but let subclass decide which object to instantiate, 
 		Factory method let a class defer instantiation to subclass using inheritance
 
@@ -971,8 +1041,8 @@ public class ConnectionFactory{
 
 
 
-	Factory Method pattern
-	========================
+Factory Method pattern
+========================
 	https://www.youtube.com/watch?v=EdIwFK0gCm4&ab_channel=Ranjithramachandran
 	=> Defind an interface for creating an object, but let subclass decide which object to instantiate, 
 		Factory method let a class defer instantiation to subclass using inheritance.
@@ -1203,7 +1273,7 @@ public class BatchProcessor {
 
 
 structural patterns 
-==========================
+====================
 		=> Adapter
 		=> Decorator
 		=> Facade Pattern

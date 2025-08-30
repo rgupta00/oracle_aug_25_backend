@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>KnockoutJS Add/Remove</title>
+  <script src="js/knockout-3.5.1.js"></script>
+</head>
+<body>
+  <h2>Team Members</h2>
+
+  <input type="text" data-bind="value: newMember, valueUpdate: 'afterkeydown'" placeholder="Enter name" />
+  <button data-bind="click: addMember">Add</button>
+
+  <ul data-bind="foreach: members">
+    <li>
+      <span data-bind="text: $data"></span>
+      <button data-bind="click: $parent.removeMember">Remove</button>
+    </li>
+  </ul>
+
+  <p>Total Members: <span data-bind="text: members().length"></span></p>
+
+  <script type="text/javascript">
+    function ViewModel() {
+      var self = this;
+
+      self.members = ko.observableArray(["Scott", "Jack"]);
+      self.newMember = ko.observable("");
+
+      self.addMember = function () {
+        var name = self.newMember().trim();
+        if (name) {
+          console.log("Adding: " + name);
+          self.members.push(name);
+          self.newMember(""); // clear input
+        }
+      };
+
+      self.removeMember = function (name) {
+        console.log("Removing: " + name);
+        self.members.remove(name);
+      };
+    }
+
+    ko.applyBindings(new ViewModel());
+  </script>
+</body>
+</html>

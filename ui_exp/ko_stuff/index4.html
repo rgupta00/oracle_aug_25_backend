@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Knockout Observable Array Example</title>
+  <script src="https://ajax.aspnetcdn.com/ajax/knockout/knockout-3.5.1.js"></script>
+</head>
+<body>
+  <h2>Team Members</h2>
+
+  <input data-bind="value: newMember, valueUpdate: 'afterkeydown'" placeholder="Enter name" />
+  <button data-bind="click: addMember">Add</button>
+
+  <ul data-bind="foreach: members">
+    <li>
+      <span data-bind="text: $data"></span>
+      <button data-bind="click: $parent.removeMember">Remove</button>
+    </li>
+  </ul>
+
+  <p>Total Members: <span data-bind="text: members().length"></span></p>
+
+  <script>
+    function AppViewModel() {
+      const self = this;
+
+      // Observable array for member names
+      self.members = ko.observableArray([]);
+
+      // Observable for the text input
+      self.newMember = ko.observable("");
+
+      // Function to add a new member
+      self.addMember = function () {
+        const name = self.newMember().trim();
+        if (name !== "") {
+          self.members.push(name);
+          self.newMember(""); // Clear the input
+        }
+      };
+
+      // Function to remove a member
+      self.removeMember = function (name) {
+        self.members.remove(name);
+      };
+    }
+
+    // Activate Knockout
+    ko.applyBindings(new AppViewModel());
+  </script>
+</body>
+</html>

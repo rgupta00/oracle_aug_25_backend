@@ -1,0 +1,23 @@
+<h2>Employee List</h2>
+<table class="oj-table">
+  <thead>
+    <tr><th>Name</th><th>Email</th><th>Actions</th></tr>
+  </thead>
+  <tbody data-bind="foreach: employees">
+    <tr>
+      <td data-bind="text: name"></td>
+      <td data-bind="text: email"></td>
+      <td>
+        <button data-bind="click: $parent.editEmployee">Edit</button>
+        <button data-bind="click: $parent.deleteEmployee">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Add/Edit Employee</h3>
+<form data-bind="submit: saveEmployee">
+  <input placeholder="Name" data-bind="value: emp().name" />
+  <input placeholder="Email" data-bind="value: emp().email" />
+  <button type="submit">Save</button>
+</form>

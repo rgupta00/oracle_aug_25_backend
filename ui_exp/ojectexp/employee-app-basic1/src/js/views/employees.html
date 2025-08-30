@@ -1,0 +1,15 @@
+<div class="oj-flex oj-sm-padding-4x">
+  <div class="oj-flex-item oj-sm-12">
+    <h2>Employee Records</h2>
+
+    <oj-table
+      data="[[dataProvider]]"
+      columns='[
+        {"headerText": "ID", "field": "id"},
+        {"headerText": "Name", "field": "name"},
+        {"headerText": "Salary", "field": "salary"}
+      ]'
+      selection-mode.row="none">
+    </oj-table>
+  </div>
+</div>
